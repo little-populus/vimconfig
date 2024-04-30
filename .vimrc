@@ -42,15 +42,22 @@ set ambiwidth=double
 
 colorscheme codedark
 
+noremap <c-k><c-j> :call HideTerminal()<cr>
+
 " 用来切换不同的窗口
 noremap <c-h> <c-w><c-h>
 noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
 
+nnoremap tt :tabnew<cr>
+nnoremap tp :tabp<cr>
+nnoremap tn :tabn<cr>
+
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <silent> <c-o> :noh<cr>
 nnoremap <c-t> :call OpenTerminal()<cr>
+nnoremap <c-w>h :call HideTerminal()<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -94,4 +101,10 @@ function! OpenTerminal()
     execute "normal! \<c-w>\<c-x>"
     execute "normal! \<c-w>\<c-j>"
     execute "resize -7"
+endfunction
+
+function! HideTerminal()
+    execute "normal! \<c-w>\<c-b>"
+    execute "normal! \<c-\\>\<c-n>"
+    hide
 endfunction
