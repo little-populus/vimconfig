@@ -1,4 +1,5 @@
 syntax on
+filetype on
 filetype plugin on
 
 call plug#begin()
@@ -10,7 +11,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/vim-plug', { 'on': 'vim-plug' }
 Plug 'tomasiser/vim-code-dark'
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 Plug 'bfrg/vim-cpp-modern', { 'for': 'cpp' }
 Plug 'chriskempson/base16-vim'
 Plug 'altercation/solarized'
@@ -21,6 +22,7 @@ Plug 'yianwillis/vimcdoc'
 Plug 'tpope/vim-fugitive'
 call plug#end()
 
+set cursorline
 set encoding=utf-8
 set number
 set autoindent
@@ -47,7 +49,8 @@ noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
 
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
-nnoremap <silent> <c-u> :terminal<cr> 
+nnoremap <silent> <c-o> :noh<cr>
+nnoremap <c-t> :call OpenTerminal()<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -83,3 +86,12 @@ autocmd BufRead * normal zR
 autocmd VimEnter * NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
    \ b:NERDTree.isTabTree()) | q | endif
+
+
+function! OpenTerminal()
+    terminal
+    sleep 10m
+    execute "normal! \<c-w>\<c-x>"
+    execute "normal! \<c-w>\<c-j>"
+    execute "resize -7"
+endfunction
