@@ -12,10 +12,13 @@ Plug 'junegunn/vim-plug', { 'on': 'vim-plug' }
 Plug 'tomasiser/vim-code-dark'
 " Plug 'morhetz/gruvbox'
 Plug 'bfrg/vim-cpp-modern', { 'for': 'cpp' }
-" Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 Plug 'altercation/solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'yianwillis/vimcdoc'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 set encoding=utf-8
@@ -55,7 +58,7 @@ let g:cpp_simple_highlighting =1
 
 let base16colorspace = 256  " Access colors present in 256 colorspace
 
-let g:airline_theme = "molokai"
+let g:airline_theme = "bubblegum" "  "catppuccin_mocha"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -65,9 +68,9 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
 endif
-let g:airline_left_sep = ''
+let g:airline_left_sep = '' " '▶️'
 let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
+let g:airline_right_sep = '' " '' " '◀️'
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
