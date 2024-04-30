@@ -47,6 +47,7 @@ noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
 
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
+nnoremap <silent> <c-u> :terminal<cr> 
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0

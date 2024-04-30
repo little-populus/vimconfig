@@ -37,3 +37,19 @@ and then test what you want to analyze
 finally input `:q`
 
 to gain result
+
+## if clipboard reveals '-clipboard'
+
+once try to copy or paste contents in system clipboard, someone suddenly finds his/her vim editor doesn't work at all, and print vim version shows that clipboard functionality is `-`
+
+it puzzles a lot, luckily, here is a possible way of resolving this problem.
+
+to install `vim-gtk3` or so.
+
+if you are using ubuntu or debian, using apt will easily to install
+
+```sh
+sudo apt install vim-gtk3
+```
+
+then works
