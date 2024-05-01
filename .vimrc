@@ -20,6 +20,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'yianwillis/vimcdoc'
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 set cursorline
@@ -42,7 +43,8 @@ set ambiwidth=double
 
 colorscheme codedark
 
-noremap <c-k><c-j> :call HideTerminal()<cr>
+let mapleader = "\<space>"
+
 
 " 用来切换不同的窗口
 noremap <c-h> <c-w><c-h>
@@ -56,8 +58,8 @@ nnoremap tn :tabn<cr>
 
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <silent> <c-o> :noh<cr>
-nnoremap <c-t> :call OpenTerminal()<cr>
-nnoremap <c-w>h :call HideTerminal()<cr>
+nnoremap <c-w>t :call OpenOrReopenTerminal()<cr>
+nnoremap <c-w>u :call HideTerminal()<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -91,13 +93,34 @@ let g:airline_symbols.dirty= '⚡'
 
 autocmd BufRead * normal zR
 autocmd VimEnter * NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
-   \ b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q! | endif
+
+function! CloseVimWithNerdTreeAndTerminal()
+    " 检查是否只有NERDTree和一个可能隐藏的终端窗口
+    if winnr('$') == 1 && exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
+        " 获取所有列表中的缓冲区
+        let l:listed_bufs = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+        " 检查是否只有NERDTree和一个终端缓冲区
+        if len(l:listed_bufs) == 1 || (len(l:listed_bufs) == 2 && getbufvar(l:listed_bufs[1], '&buftype') == 'terminal')
+            " 关闭Vim
+            quitall!
+        endif
+    endif
+endfunction
+
+" 在每次进入缓冲区时调用函数
+autocmd BufEnter * call CloseVimWithNerdTreeAndTerminal()
 
 
-function! OpenTerminal()
-    terminal
-    sleep 10m
+function! OpenOrReopenTerminal()
+    let term_buf = bufnr('/bin/zsh')
+    if term_buf != -1 && buflisted(term_buf)
+        execute 'sp'
+        execute 'buffer' term_buf
+    else
+        execute 'terminal'
+        sleep 10m
+    endif
     execute "normal! \<c-w>\<c-x>"
     execute "normal! \<c-w>\<c-j>"
     execute "resize -7"
