@@ -59,7 +59,7 @@ nnoremap tn :tabn<cr>
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <silent> <c-o> :noh<cr>
 nnoremap <c-w>t :call OpenOrReopenTerminal()<cr>
-nnoremap <c-w>u :call HideTerminal()<cr>
+map <c-w>u :call HideTerminal()<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -127,7 +127,18 @@ function! OpenOrReopenTerminal()
 endfunction
 
 function! HideTerminal()
-    execute "normal! \<c-w>\<c-b>"
-    execute "normal! \<c-\\>\<c-n>"
-    hide
+    let term_buf = bufnr('/bin/zsh')
+    " 检查终端缓冲区是否存在且已列出
+    if term_buf != -1 && buflisted(term_buf)
+        " 使用bufwinnr()检查终端是否已经隐藏（返回-1表示隐藏）
+        if bufwinnr(term_buf) == -1
+            " 终端已隐藏，不执行任何操作
+            return
+        else
+            " 终端未隐藏，执行隐藏操作
+            execute "normal! \<c-w>\<c-b>"
+            execute "normal! \<c-\\>\<c-n>"
+            hide
+        endif
+    endif
 endfunction
