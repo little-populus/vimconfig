@@ -21,6 +21,7 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'yianwillis/vimcdoc'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/vim-clang-format'
+Plug 'valloric/youcompleteme'
 call plug#end()
 
 set cursorline
