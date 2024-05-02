@@ -44,6 +44,7 @@ set hlsearch " 设置查找高亮
 set incsearch
 set clipboard=unnamed,unnamedplus " 将剪切板设置为这两个寄存器，分别作用于Mac，Windows和Linux
 set ambiwidth=double
+set tags=tags
 
 colorscheme codedark
 
@@ -119,6 +120,7 @@ let g:airline_symbols.dirty= '⚡'
 autocmd BufRead * normal zR
 autocmd VimEnter * NERDTree
 autocmd BufDelete * :AirlineRefresh
+autocmd BufWritePost *.cpp *.h *.hpp *.hxx *.cxx *.c *.cc silent! !ctags -R &
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quitall! | endif
 
