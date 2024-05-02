@@ -50,7 +50,7 @@ set tags=tags;
 colorscheme codedark
 
 let mapleader = "\<space>"
-let clang_format#style = 'Microsoft'
+let g:clang_format#code_style = 'Microsoft'
 let g:gundo_prefer_python3 = 1
 
 
@@ -73,6 +73,7 @@ nnoremap <c-w>t :call OpenOrReopenTerminal()<cr>
 nnoremap <c-w>u :call HideTerminal()<cr>
 nnoremap <leader>f :ClangFormat<cr>
 nnoremap <leader>g :GundoToggle<cr>
+nnoremap <leader>e :call ToggleCocDiagnostics<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -195,3 +196,16 @@ highlight PmenuSel ctermfg=Black ctermbg=LightGrey
 " 设置已匹配字的颜色
 highlight CocPumDetail ctermfg=Blue
 
+function! ToggleCocDiagnostics()
+  " 查找所有缓冲区并检查是否有文件类型为 'qf' 的缓冲区
+  for bufnr in range(1, bufnr('$'))
+    " 检查缓冲区是否存在且文件类型为 'qf'
+    if buflisted(bufnr) && getbufvar(bufnr, '&filetype') ==# 'qf'
+      " 关闭文件类型为 'qf' 的缓冲区
+      execute bufnr . 'bd!'
+      return
+    endif
+  endfor
+  " 如果没有找到文件类型为 'qf' 的缓冲区，则打开 CocList diagnostics
+  execute CocDiagnostics
+endfunction
