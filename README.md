@@ -53,3 +53,18 @@ sudo apt install vim-gtk3
 ```
 
 then works
+
+## config coc-nvim
+
+```sh
+CocInstall coc-clangd
+CocInstall coc-config
+```
+
+```sh
+{
+  "clangd.arguments": [
+    "--compile-commands-dir=build/"
+  ]
+}
+```

@@ -2,6 +2,7 @@ syntax on
 filetype on
 filetype plugin on
 
+
 call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-vinegar'
@@ -12,7 +13,7 @@ Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/vim-plug', { 'on': 'vim-plug' }
 Plug 'tomasiser/vim-code-dark'
 Plug 'morhetz/gruvbox'
-Plug 'bfrg/vim-cpp-modern', { 'for': 'cpp' }
+Plug 'bfrg/vim-cpp-modern', { 'for': ['cpp', 'c'] }
 Plug 'chriskempson/base16-vim'
 Plug 'altercation/solarized'
 Plug 'vim-airline/vim-airline'
@@ -21,7 +22,9 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'yianwillis/vimcdoc'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/vim-clang-format'
-Plug 'valloric/youcompleteme'
+Plug 'neoclide/coc.nvim'
+Plug 'jiangmiao/auto-pairs', { 'for': ['cpp', 'c'] }
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 set cursorline
@@ -53,9 +56,12 @@ noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
 
-nnoremap tt :tabnew<cr>
-nnoremap tp :tabp<cr>
-nnoremap tn :tabn<cr>
+nnoremap tt :tabnew!<cr>
+nnoremap tp :tabp!<cr>
+nnoremap tn :tabn!<cr>
+
+nnoremap bp :bp!<cr>
+nnoremap bn :bn!<cr>
 
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <silent> <c-o> :noh<cr>
@@ -69,6 +75,24 @@ let g:cpp_function_highlighting = 1
 let g:cpp_attributes_highlighting = 1
 let g:cpp_member_highlighting = 1
 let g:cpp_simple_highlighting =1
+
+
+" let g:coc_user_config = {
+" \   'languageserver': {
+" \     'clangd': {
+" \       'command': 'clangd',
+" \       'args': ['--compile-commands-dir=build/','--background-index', '--clang-tidy', '--suggest-missing-includes'],
+" \       'filetypes': ['c', 'cpp', 'objc', 'objcpp'],
+" \      'rootPatterns': ['build','compile_commands.json', '.vim/', '.git/', '.hg/'],
+" \      'trace.server': 'verbose',
+" \      'initializationOptions': {
+" \        'clangdFileStatus':'true'
+" \      }
+" \    }
+" \  }
+" \}
+
+
 
 let base16colorspace = 256  " Access colors present in 256 colorspace
 
@@ -145,3 +169,17 @@ function! HideTerminal()
         endif
     endif
 endfunction
+
+" 设置补全菜单的前景和背景颜色
+" highlight Pmenu ctermfg=7 ctermbg=236
+" highlight PmenuSel ctermfg=white ctermbg=32
+
+" 设置补全菜单项的默认前景和背景颜色
+highlight Pmenu ctermfg=LightGrey ctermbg=DarkGrey
+
+" 设置补全菜单选中项的前景和背景颜色
+highlight PmenuSel ctermfg=Black ctermbg=LightGrey
+
+" 设置已匹配字的颜色
+highlight CocPumDetail ctermfg=Blue
+
