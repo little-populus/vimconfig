@@ -25,6 +25,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'neoclide/coc.nvim'
 Plug 'jiangmiao/auto-pairs', { 'for': ['cpp', 'c'] }
 Plug 'vim-syntastic/syntastic'
+Plug 'sjl/gundo.vim'
 call plug#end()
 
 set cursorline
@@ -50,6 +51,7 @@ colorscheme codedark
 
 let mapleader = "\<space>"
 let clang_format#style = 'Microsoft'
+let g:gundo_prefer_python3 = 1
 
 
 " 用来切换不同的窗口
@@ -70,6 +72,7 @@ nnoremap <silent> <c-o> :noh<cr>
 nnoremap <c-w>t :call OpenOrReopenTerminal()<cr>
 nnoremap <c-w>u :call HideTerminal()<cr>
 nnoremap <leader>f :ClangFormat<cr>
+nnoremap <leader>g :GundoToggle<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
