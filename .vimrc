@@ -122,9 +122,11 @@ let g:airline_symbols.dirty= '⚡'
 autocmd BufRead * normal zR
 autocmd VimEnter * NERDTree
 autocmd BufDelete * :AirlineRefresh
-autocmd BufWritePost *.cpp *.h *.hpp *.hxx *.cxx *.c *.cc silent! !ctags -R &
+autocmd BufWritePost *.cpp,*.h,*.hpp,*.hxx,*.cxx,*.c,*.cc silent! !ctags -R &
 " 自动在保存文件时格式化代码
-autocmd BufWritePre *.cpp *.h *.c *.cc *.hpp *.cxx *.hxx call clang_format#auto_format()
+autocmd BufWritePre *.cpp,*.h,*.c,*.cc,*.hpp,*.cxx,*.hxx call clang_format#do_auto_format()
+autocmd InsertLeave *.c,*.cc,*.cpp,*.h,*.hpp,*.cxx,*.hxx call clang_format#do_auto_format()
+
 
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quitall! | endif
