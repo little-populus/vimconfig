@@ -58,13 +58,14 @@ then works
 
 ```sh
 CocInstall coc-clangd
-CocInstall coc-config
+CocInstall coc-json
 ```
 
 ```sh
 {
   "clangd.arguments": [
     "--compile-commands-dir=build/"
-  ]
+  ],
+  "suggest.noselect": true
 }
 ```
