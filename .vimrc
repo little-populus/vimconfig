@@ -25,6 +25,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'neoclide/coc.nvim'
 Plug 'jiangmiao/auto-pairs', { 'for': ['cpp', 'c'] }
 Plug 'vim-syntastic/syntastic'
+Plug 'sjl/gundo.vim'
 call plug#end()
 
 set cursorline
@@ -44,12 +45,14 @@ set hlsearch " 设置查找高亮
 set incsearch
 set clipboard=unnamed,unnamedplus " 将剪切板设置为这两个寄存器，分别作用于Mac，Windows和Linux
 set ambiwidth=double
-set tags=tags
+set tags=tags;
 
 colorscheme codedark
 
 let mapleader = "\<space>"
+let g:clang_format#auto_format_on_insert_leave=1
 
+nnoremap <leader>g :GundoToggle<cr>
 
 " 用来切换不同的窗口
 noremap <c-h> <c-w><c-h>
