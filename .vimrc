@@ -94,7 +94,9 @@ let g:airline_symbols.dirty= '⚡'
 
 autocmd BufRead * normal zR
 autocmd VimEnter * NERDTree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q! | endif
+autocmd BufDelete * :AirlineRefresh
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quitall! | endif
 
 function! CloseVimWithNerdTreeAndTerminal()
     " 检查是否只有NERDTree和一个可能隐藏的终端窗口
@@ -110,7 +112,7 @@ function! CloseVimWithNerdTreeAndTerminal()
 endfunction
 
 " 在每次进入缓冲区时调用函数
-autocmd BufEnter * call CloseVimWithNerdTreeAndTerminal()
+" autocmd BufEnter * call CloseVimWithNerdTreeAndTerminal()
 
 
 function! OpenOrReopenTerminal()
