@@ -25,7 +25,6 @@ Plug 'rhysd/vim-clang-format'
 Plug 'neoclide/coc.nvim'
 Plug 'jiangmiao/auto-pairs', { 'for': ['cpp', 'c'] }
 Plug 'vim-syntastic/syntastic'
-Plug 'sjl/gundo.vim'
 call plug#end()
 
 set cursorline
@@ -50,9 +49,8 @@ set tags=tags;
 colorscheme codedark
 
 let mapleader = "\<space>"
-let g:clang_format#auto_format_on_insert_leave=1
+let clang_format#style = 'Microsoft'
 
-nnoremap <leader>g :GundoToggle<cr>
 
 " 用来切换不同的窗口
 noremap <c-h> <c-w><c-h>
@@ -70,7 +68,8 @@ nnoremap bn :bn!<cr>
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <silent> <c-o> :noh<cr>
 nnoremap <c-w>t :call OpenOrReopenTerminal()<cr>
-map <c-w>u :call HideTerminal()<cr>
+nnoremap <c-w>u :call HideTerminal()<cr>
+nnoremap <leader>f :ClangFormat<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -124,6 +123,9 @@ autocmd BufRead * normal zR
 autocmd VimEnter * NERDTree
 autocmd BufDelete * :AirlineRefresh
 autocmd BufWritePost *.cpp *.h *.hpp *.hxx *.cxx *.c *.cc silent! !ctags -R &
+" 自动在保存文件时格式化代码
+autocmd BufWritePre *.cpp *.h *.c *.cc *.hpp *.cxx *.hxx call clang_format#auto_format()
+
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quitall! | endif
 
