@@ -69,11 +69,11 @@ nnoremap bn :bn!<cr>
 
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <silent> <c-o> :noh<cr>
-nnoremap <c-w>t :call OpenOrReopenTerminal()<cr>
-nnoremap <c-w>u :call HideTerminal()<cr>
+nnoremap <leader>t :call OpenOrReopenTerminal()<cr>
+nnoremap <leader>h :call HideTerminal()<cr>
 nnoremap <leader>f :ClangFormat<cr>
 nnoremap <leader>g :GundoToggle<cr>
-nnoremap <leader>e :call ToggleCocDiagnostics<cr>
+nnoremap <leader>e :call ToggleCocDiagnostics()<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -206,6 +206,5 @@ function! ToggleCocDiagnostics()
       return
     endif
   endfor
-  " 如果没有找到文件类型为 'qf' 的缓冲区，则打开 CocList diagnostics
-  execute CocDiagnostics
+  execute 'CocDiagnostics'
 endfunction
