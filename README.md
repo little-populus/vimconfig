@@ -8,7 +8,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn
 
 Using above command to install Plug-Manager into your computer
 
-then 
+then
 
 input `:PlugInstall` to install Plugs you want to install in `.vimrc`
 
@@ -60,8 +60,9 @@ then works
 CocInstall coc-clangd
 CocInstall coc-json
 ```
+input `:CocConfig` to generate coc-settings.json
 
-```sh
+```json
 {
   "clangd.arguments": [
     "--compile-commands-dir=build/"
