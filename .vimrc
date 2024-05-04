@@ -28,6 +28,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'sjl/gundo.vim'
 call plug#end()
 
+set ignorecase
+set smartcase
 set cursorline
 set encoding=utf-8
 set number
@@ -64,8 +66,8 @@ nnoremap tt :tabnew!<cr>
 nnoremap tp :tabp!<cr>
 nnoremap tn :tabn!<cr>
 
-nnoremap bp :bp!<cr>
-nnoremap bn :bn!<cr>
+nnoremap <leader>bp :bp!<cr>
+nnoremap <leader>bn :bn!<cr>
 
 nnoremap <silent> <c-n> :NERDTreeToggle<cr>
 nnoremap <silent> <c-o> :noh<cr>
@@ -74,6 +76,7 @@ nnoremap <leader>h :call HideTerminal()<cr>
 nnoremap <leader>f :ClangFormat<cr>
 nnoremap <leader>g :GundoToggle<cr>
 nnoremap <leader>e :call ToggleCocDiagnostics()<cr>
+nnoremap <leader>r :call ToggleLineNumbering()<cr>
 
 let NERDTreeShowBookmarks = 1
 let NERDTreeHijackNetrw = 0
@@ -208,3 +211,25 @@ function! ToggleCocDiagnostics()
   endfor
   execute 'CocDiagnostics'
 endfunction
+
+" 在普通模式下使用相对行号，在插入模式下使用绝对行号
+" augroup numbertoggle
+"   autocmd!
+"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != 'i' | set rnu | endif
+"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+" augroup END
+
+
+function! ToggleLineNumbering()
+    " 如果当前正在使用相对行号
+    if &relativenumber
+        " 切换到绝对行号
+        set norelativenumber
+        set number
+    else
+        " 切换到相对行号
+        set relativenumber
+    endif
+endfunction
+
+
